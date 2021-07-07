@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a9974ff66de52a9439b597e9d9800a9e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - SadImage: {instanceID: 0}
+  - HappyImage: {instanceID: 0}
+  - ButtonPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
