@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManagerView : MonoBehaviour
+public class View : MonoBehaviour
 {
     public Sprite SadImage, HappyImage;
     public GameObject ButtonPrefab;

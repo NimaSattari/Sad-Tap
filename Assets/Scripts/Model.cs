@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManagerModel
+public class Model
 {
     public List<int> AllCards = new List<int>();
     public List<int> SadCards = new List<int>();

@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManagerViewModel : MonoBehaviour
+public class Controller : MonoBehaviour
 {
-    Config config;
-    GameManagerView view;
+    [SerializeField] Config config;
+    [SerializeField] View view;
     void Start()
     {
-        config = GetComponent<Config>();
-        view = GetComponent<GameManagerView>();
-        GameManagerModel model = new GameManagerModel();
+        Model model = new Model();
 
         model.SettingDifficulty(config.DataList.HowManyCards, config.DataList.PercentageOfSadCards, config.DataList.GameTime);
         model.GenerateAllCards();
