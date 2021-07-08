@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,10 @@ public class Controller : MonoBehaviour
 {
     [SerializeField] Config config;
     [SerializeField] View view;
+    [SerializeField] Model model;
     void Start()
     {
-        Model model = new Model();
+        //Model model = new Model();
 
         model.SettingDifficulty(config.DataList.HowManyCards, config.DataList.PercentageOfSadCards, config.DataList.GameTime);
         model.GenerateAllCards();
@@ -17,22 +19,45 @@ public class Controller : MonoBehaviour
         view.SadImage = config.Sadsprite;
         view.HappyImage = config.Happysprite;
         view.ButtonPrefab = config.buttonPrefab;
+        view.gamepanel = config.GamePanel;
+        view.gameOverPanel = config.GameOverPanel;
+        view.winPanel = config.WinPanel;
 
-        foreach (int i in model.SadCards)
+
+        foreach (int i in model.AllCards)
         {
-            if (model.SadCards[i] == 0)
+            if (model.SadCards[i] == false)
             {
-                view.SetImage(0);
+                view.SetImage(i, 0, SelectCard);
             }
-            else
+            else if (model.SadCards[i] == true)
             {
-                view.SetImage(1);
+                view.SetImage(i, 1, SelectCard);
             }
         }
     }
 
-    void Update()
+    public void SelectCard(GameObject button, int CardID,int sadorhappy)
     {
-        
+        model.Check(CardID);
+        view.Choose(button, sadorhappy);
+        CheckTimeIsUp();
+        CheckIfWin();
+    }
+
+    private void CheckIfWin()
+    {
+        if (model.CheckIfDone())
+        {
+            view.Win();
+        }
+    }
+
+    private void CheckTimeIsUp()
+    {
+        if (model.CheckTime())
+        {
+            view.GameOver();
+        }
     }
 }

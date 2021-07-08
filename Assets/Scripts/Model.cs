@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Model
+public class Model : MonoBehaviour
 {
     public List<int> AllCards = new List<int>();
-    public List<int> SadCards = new List<int>();
+    public List<bool> SadCards = new List<bool>();
     public int HowManyCards = 10;
     public int PercentageOfSadCards = 50;
     public int GameTime = 10;
@@ -20,36 +20,36 @@ public class Model
 
     public void GenerateAllCards()
     {
-        for (int i = 0; i <= HowManyCards; i++)
+        for (int i = 0; i < HowManyCards; i++)
         {
             AllCards.Add(i);
         }
     }
     public void GenerateSadCards()
     {
-        for (int i = 0; i <= AllCards.Count; i++)
+        for (int i = 0; i < AllCards.Count; i++)
         {
-            SadCards.Add(0);
+            SadCards.Add(true);
         }
-        for (int i = 0; i <= AllCards.Count; i++)
+        for (int i = 0; i < AllCards.Count; i++)
         {
             int randomnumber = Random.Range(0, 100);
             if (randomnumber <= PercentageOfSadCards)
             {
-                SadCards[i] = 0;
+                SadCards[i] = false;
             }
             else
             {
-                SadCards[i] = 1;
+                SadCards[i] = true;
             }
         }
     }
 
     public void Check(int CardID)
     {
-        if (SadCards[AllCards[CardID]] == 0)
+        if (SadCards[AllCards[CardID]] == false)
         {
-            SadCards[AllCards[CardID]] = 1;
+            SadCards[AllCards[CardID]] = true;
             ChangeTime(+1);
         }
         else
@@ -58,21 +58,30 @@ public class Model
         }
     }
 
-    public void ChangeTime(int timeToChange)
+    private void ChangeTime(int timeToChange)
     {
         GameTime += timeToChange;
-        CheckTime();
     }
-    private void CheckTime()
+    public bool CheckTime()
     {
         if (GameTime <= 0)
         {
-            isTimeUp = true;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
-
-    public bool IsTimeUp()
+    public bool CheckIfDone()
     {
-        return isTimeUp;
+        for (int i = 0; i < SadCards.Count; i++)
+        {
+            if (SadCards[i] == false)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -15,4 +15,7 @@ public class Config : MonoBehaviour
     public DifficultyData DataList;
     public Sprite Happysprite, Sadsprite;
     public GameObject buttonPrefab;
+    public GameObject GamePanel;
+    public GameObject GameOverPanel;
+    public GameObject WinPanel;
 }
