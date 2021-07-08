@@ -7,11 +7,11 @@ public class Controller : MonoBehaviour
 {
     [SerializeField] Config config;
     [SerializeField] View view;
-    [SerializeField] Model model;
+    private float nextUpdate = 0.01f;
+    Model model = new Model();
+
     void Start()
     {
-        //Model model = new Model();
-
         model.SettingDifficulty(config.DataList.HowManyCards, config.DataList.PercentageOfSadCards, config.DataList.GameTime);
         model.GenerateAllCards();
         model.GenerateSadCards();
@@ -22,6 +22,7 @@ public class Controller : MonoBehaviour
         view.gamepanel = config.GamePanel;
         view.gameOverPanel = config.GameOverPanel;
         view.winPanel = config.WinPanel;
+        view.timeText = config.TimeText;
 
 
         foreach (int i in model.AllCards)
@@ -41,7 +42,6 @@ public class Controller : MonoBehaviour
     {
         model.Check(CardID);
         view.Choose(button, sadorhappy);
-        CheckTimeIsUp();
         CheckIfWin();
     }
 
@@ -58,6 +58,20 @@ public class Controller : MonoBehaviour
         if (model.CheckTime())
         {
             view.GameOver();
+        }
+    }
+    private void ShowTime()
+    {
+        model.SetTime();
+        view.UpdateTimeText(model.GetTime());
+    }
+    private void Update()
+    {
+        if (Time.time >= nextUpdate)
+        {
+            nextUpdate = Time.time + 0.01f;
+            ShowTime();
+            CheckTimeIsUp();
         }
     }
 }

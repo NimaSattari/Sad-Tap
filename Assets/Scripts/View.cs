@@ -12,10 +12,11 @@ public class View : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject winPanel;
     public List<GameObject> Cards;
+    public Text timeText;
 
     public void SetImage(int CardID, int SadOrHappy, Action<GameObject, int, int> SelectingAction)
     {
-        GameObject button = Instantiate(ButtonPrefab, gamepanel.transform);
+        var button = Instantiate(ButtonPrefab, gamepanel.transform);
         Cards.Add(button);
         if (SadOrHappy == 0)
         {
@@ -69,5 +70,9 @@ public class View : MonoBehaviour
                     break;
             }
         }
+    }
+    public void UpdateTimeText(float gameTime)
+    {
+        timeText.text = gameTime.ToString("0.00");
     }
 }

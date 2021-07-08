@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class DifficultyData
@@ -18,4 +17,5 @@ public class Config : MonoBehaviour
     public GameObject GamePanel;
     public GameObject GameOverPanel;
     public GameObject WinPanel;
+    public Text TimeText;
 }

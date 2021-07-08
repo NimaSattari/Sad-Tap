@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Model : MonoBehaviour
+public class Model
 {
     public List<int> AllCards = new List<int>();
     public List<bool> SadCards = new List<bool>();
     public int HowManyCards = 10;
     public int PercentageOfSadCards = 50;
-    public int GameTime = 10;
+    public float GameTime = 10;
+    public float NowTime;
     bool isTimeUp;
 
     public void SettingDifficulty(int howmanycards, int percentageofsadcards, int gametime)
@@ -16,6 +17,7 @@ public class Model : MonoBehaviour
         HowManyCards = howmanycards;
         PercentageOfSadCards = percentageofsadcards;
         GameTime = gametime;
+        NowTime = gametime;
     }
 
     public void GenerateAllCards()
@@ -51,6 +53,10 @@ public class Model : MonoBehaviour
         {
             SadCards[AllCards[CardID]] = true;
             ChangeTime(+1);
+            if (NowTime > GameTime)
+            {
+                NowTime = GameTime;
+            }
         }
         else
         {
@@ -60,11 +66,11 @@ public class Model : MonoBehaviour
 
     private void ChangeTime(int timeToChange)
     {
-        GameTime += timeToChange;
+        NowTime += timeToChange;
     }
     public bool CheckTime()
     {
-        if (GameTime <= 0)
+        if (NowTime <= 0)
         {
             return true;
         }
@@ -83,5 +89,17 @@ public class Model : MonoBehaviour
             }
         }
         return true;
+    }
+    public float GetTime()
+    {
+        return NowTime;
+    }
+    public void SetTime()
+    {
+        NowTime -= 0.01f;
+        if (NowTime < 0)
+        {
+            NowTime = 0;
+        }
     }
 }
