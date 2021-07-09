@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Model : MonoBehaviour
+public class Model
 {
     public List<int> AllCards = new List<int>();
     public List<bool> SadCards = new List<bool>();
