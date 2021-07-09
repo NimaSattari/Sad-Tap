@@ -30,6 +30,14 @@ public class View : MonoBehaviour
         }
         RotateCards();
     }
+    public void ResetGame()
+    {
+        foreach(GameObject Card in Cards)
+        {
+            Destroy(Card);
+        }
+        Cards.Clear();
+    }
 
     public void Choose(GameObject button, int sadorhappy)
     {

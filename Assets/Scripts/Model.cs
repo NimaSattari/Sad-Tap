@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Model
+public class Model : MonoBehaviour
 {
     public List<int> AllCards = new List<int>();
     public List<bool> SadCards = new List<bool>();
@@ -10,7 +10,6 @@ public class Model
     public int PercentageOfSadCards = 50;
     public float GameTime = 10;
     public float NowTime;
-    bool isTimeUp;
 
     public void SettingDifficulty(int howmanycards, int percentageofsadcards, int gametime)
     {

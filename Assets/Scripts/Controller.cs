@@ -8,14 +8,10 @@ public class Controller : MonoBehaviour
     [SerializeField] Config config;
     [SerializeField] View view;
     private float nextUpdate = 0.01f;
-    Model model = new Model();
+    Model model;
 
     void Start()
     {
-        model.SettingDifficulty(config.DataList.HowManyCards, config.DataList.PercentageOfSadCards, config.DataList.GameTime);
-        model.GenerateAllCards();
-        model.GenerateSadCards();
-
         view.SadImage = config.Sadsprite;
         view.HappyImage = config.Happysprite;
         view.ButtonPrefab = config.buttonPrefab;
@@ -24,7 +20,16 @@ public class Controller : MonoBehaviour
         view.winPanel = config.WinPanel;
         view.timeText = config.TimeText;
 
+        MakeNewGame();
+    }
 
+    public void MakeNewGame()
+    {
+        model = new Model();
+        view.ResetGame();
+        model.SettingDifficulty(config.DataList.HowManyCards, config.DataList.PercentageOfSadCards, config.DataList.GameTime);
+        model.GenerateAllCards();
+        model.GenerateSadCards();
         foreach (int i in model.AllCards)
         {
             if (model.SadCards[i] == false)
@@ -49,7 +54,8 @@ public class Controller : MonoBehaviour
     {
         if (model.CheckIfDone())
         {
-            view.Win();
+            MakeNewGame();
+            //view.Win();
         }
     }
 
