@@ -12,33 +12,44 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        view.SadImage = config.Sadsprite;
-        view.HappyImage = config.Happysprite;
-        view.ButtonPrefab = config.buttonPrefab;
-        view.gamepanel = config.GamePanel;
-        view.gameOverPanel = config.GameOverPanel;
-        view.winPanel = config.WinPanel;
-        view.timeText = config.TimeText;
+        SetupValues();
 
         MakeNewGame();
     }
 
+    private void Update()
+    {
+        if (Time.time >= nextUpdate)
+        {
+            nextUpdate = Time.time + 0.01f;
+            ShowTime();
+            CheckTimeIsUp();
+        }
+    }
+
+    private void SetupValues()
+    {
+        view.sadImage = config.sadsprite;
+        view.happyImage = config.happysprite;
+        view.faceItemPresenterPrefab = config.faceItemPresenterPrefab;
+        model = new Model();
+        model.SettingDifficulty(config.dataList.howManyCards, config.dataList.percentageOfSadCards, config.dataList.gameTime);
+    }
+
     public void MakeNewGame()
     {
-        model = new Model();
-        view.ResetGame();
-        model.SettingDifficulty(config.DataList.HowManyCards, config.DataList.PercentageOfSadCards, config.DataList.GameTime);
         model.GenerateAllCards();
         model.GenerateSadCards();
-        foreach (int i in model.AllCards)
+        view.ResetGame();
+        foreach (int i in model.allCards)
         {
-            if (model.SadCards[i] == false)
+            if (model.sadCards[i] == false)
             {
-                view.SetImage(i, 0, SelectCard);
+                view.SetupCard(i, 0, SelectCard);
             }
-            else if (model.SadCards[i] == true)
+            else if (model.sadCards[i] == true)
             {
-                view.SetImage(i, 1, SelectCard);
+                view.SetupCard(i, 1, SelectCard);
             }
         }
     }
@@ -66,18 +77,10 @@ public class Controller : MonoBehaviour
             view.GameOver();
         }
     }
+
     private void ShowTime()
     {
         model.SetTime();
         view.UpdateTimeText(model.GetTime());
-    }
-    private void Update()
-    {
-        if (Time.time >= nextUpdate)
-        {
-            nextUpdate = Time.time + 0.01f;
-            ShowTime();
-            CheckTimeIsUp();
-        }
     }
 }

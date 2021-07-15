@@ -6,61 +6,45 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour
 {
-    public Sprite SadImage, HappyImage;
-    public GameObject ButtonPrefab;
+    [NonSerialized] public Sprite sadImage, happyImage;
+    [NonSerialized] public FaceItemPresenter faceItemPresenterPrefab;
     public GameObject gamepanel;
     public GameObject gameOverPanel;
     public GameObject winPanel;
-    public List<GameObject> Cards;
+    public List<GameObject> cards;
     public Text timeText;
 
-    public void SetImage(int CardID, int SadOrHappy, Action<GameObject, int, int> SelectingAction)
+    public void SetupCard(int cardID, int sadOrHappy, Action<GameObject, int, int> selectingAction)
     {
-        var button = Instantiate(ButtonPrefab, gamepanel.transform);
-        Cards.Add(button);
-        if (SadOrHappy == 0)
-        {
-            button.GetComponent<Image>().sprite = SadImage;
-            button.GetComponent<Button>().onClick.AddListener(() => SelectingAction(button, CardID, SadOrHappy));
-        }
-        else if (SadOrHappy == 1)
-        {
-            button.GetComponent<Image>().sprite = HappyImage;
-            button.GetComponent<Button>().onClick.AddListener(() => SelectingAction(button, CardID, SadOrHappy));
-        }
+        FaceItemPresenter faceItemPresenter = InstantiateCard();
+        SetCardListenerAndSprite(cardID, sadOrHappy, selectingAction, faceItemPresenter);
         RotateCards();
     }
-    public void ResetGame()
+
+    private FaceItemPresenter InstantiateCard()
     {
-        foreach(GameObject Card in Cards)
-        {
-            Destroy(Card);
-        }
-        Cards.Clear();
+        var faceItemPresenter = Instantiate(faceItemPresenterPrefab, gamepanel.transform);
+        cards.Add(faceItemPresenter.gameObject);
+        return faceItemPresenter;
     }
 
-    public void Choose(GameObject button, int sadorhappy)
+    private void SetCardListenerAndSprite(int cardID, int sadOrHappy, Action<GameObject, int, int> selectingAction, FaceItemPresenter faceItemPresenter)
     {
-        if (sadorhappy == 0)
+        if (sadOrHappy == 0)
         {
-            button.GetComponent<Image>().sprite = HappyImage;
+            faceItemPresenter.itemImage.sprite = sadImage;
+            faceItemPresenter.itemButton.onClick.AddListener(() => selectingAction(faceItemPresenter.gameObject, cardID, sadOrHappy));
         }
-        else
+        else if (sadOrHappy == 1)
         {
-            RotateCards();
+            faceItemPresenter.itemImage.sprite = happyImage;
+            faceItemPresenter.itemButton.onClick.AddListener(() => selectingAction(faceItemPresenter.gameObject, cardID, sadOrHappy));
         }
     }
-    public void GameOver()
-    {
-        gameOverPanel.SetActive(true);
-    }
-    public void Win()
-    {
-        winPanel.SetActive(true);
-    }
+
     private void RotateCards()
     {
-        foreach (GameObject card in Cards)
+        foreach (GameObject card in cards)
         {
             int randomNumber = UnityEngine.Random.Range(0, 3);
             switch (randomNumber)
@@ -79,6 +63,38 @@ public class View : MonoBehaviour
             }
         }
     }
+
+    public void ResetGame()
+    {
+        foreach(GameObject Card in cards)
+        {
+            Destroy(Card);
+        }
+        cards.Clear();
+    }
+
+    public void Choose(GameObject button, int sadorhappy)
+    {
+        if (sadorhappy == 0)
+        {
+            button.GetComponent<Image>().sprite = happyImage;
+        }
+        else
+        {
+            RotateCards();
+        }
+    }
+
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void Win()
+    {
+        winPanel.SetActive(true);
+    }
+
     public void UpdateTimeText(float gameTime)
     {
         timeText.text = gameTime.ToString("0.00");

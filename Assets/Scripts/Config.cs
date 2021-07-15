@@ -4,18 +4,15 @@ using UnityEngine.UI;
 [System.Serializable]
 public class DifficultyData
 {
-    public int HowManyCards;
-    public int PercentageOfSadCards;
-    public int GameTime;
+    public int howManyCards;
+    public int percentageOfSadCards;
+    public int gameTime;
 }
 
-public class Config : MonoBehaviour
+[CreateAssetMenu(fileName = "SadTap", menuName = "Config", order = 1)]
+public class Config : ScriptableObject
 {
-    public DifficultyData DataList;
-    public Sprite Happysprite, Sadsprite;
-    public GameObject buttonPrefab;
-    public GameObject GamePanel;
-    public GameObject GameOverPanel;
-    public GameObject WinPanel;
-    public Text TimeText;
+    public DifficultyData dataList;
+    public Sprite happysprite, sadsprite;
+    public FaceItemPresenter faceItemPresenterPrefab;
 }
