@@ -32,12 +32,13 @@ public class Controller : MonoBehaviour
         view.sadImage = config.sadsprite;
         view.happyImage = config.happysprite;
         view.faceItemPresenterPrefab = config.faceItemPresenterPrefab;
-        model = new Model();
-        model.SettingDifficulty(config.dataList.howManyCards, config.dataList.percentageOfSadCards, config.dataList.gameTime);
+        view.maxTime = config.dataList.gameTime;
     }
 
     public void MakeNewGame()
     {
+        model = new Model();
+        model.SettingDifficulty(config.dataList.howManyCards, config.dataList.percentageOfSadCards, config.dataList.gameTime);
         model.GenerateAllCards();
         model.GenerateSadCards();
         view.ResetGame();
@@ -54,10 +55,10 @@ public class Controller : MonoBehaviour
         }
     }
 
-    public void SelectCard(GameObject button, int CardID,int sadorhappy)
+    public void SelectCard(FaceItemPresenter faceItemPresenter, int CardID,int sadorhappy)
     {
         model.Check(CardID);
-        view.Choose(button, sadorhappy);
+        view.Choose(faceItemPresenter, sadorhappy);
         CheckIfWin();
     }
 

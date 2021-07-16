@@ -52,7 +52,7 @@ public class Model
         if (sadCards[allCards[CardID]] == false)
         {
             sadCards[allCards[CardID]] = true;
-            ChangeTime(+1);
+            ChangeTime(+0.5f);
             if (nowTime > gameTime)
             {
                 nowTime = gameTime;
@@ -64,7 +64,7 @@ public class Model
         }
     }
 
-    private void ChangeTime(int timeToChange)
+    private void ChangeTime(float timeToChange)
     {
         nowTime += timeToChange;
     }
