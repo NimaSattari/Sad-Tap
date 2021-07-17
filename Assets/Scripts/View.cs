@@ -15,6 +15,7 @@ public class View : MonoBehaviour
     public GameObject winPanel;
     public List<FaceItemPresenter> cards;
     public Text timeText;
+    public Text scoreText;
     public Slider timeSlider;
 
     private void Start()
@@ -93,5 +94,10 @@ public class View : MonoBehaviour
     {
         timeText.text = gameTime.ToString("0.00");
         timeSlider.value = gameTime;
+    }
+
+    public void UpdateScoreText(int score)
+    {
+        scoreText.text = score.ToString();
     }
 }

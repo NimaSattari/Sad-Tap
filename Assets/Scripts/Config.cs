@@ -4,7 +4,9 @@ using UnityEngine.UI;
 [System.Serializable]
 public class DifficultyData
 {
-    public int howManyCards;
+    public int cardsCountStart;
+    public int roundsOfOneCardsCount;
+    public int addedCardsToCount;
     public int percentageOfSadCards;
     public int gameTime;
 }

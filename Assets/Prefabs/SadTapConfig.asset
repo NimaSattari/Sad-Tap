@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: SadTapConfig
   m_EditorClassIdentifier: 
   dataList:
-    howManyCards: 8
-    percentageOfSadCards: 40
+    cardsCountStart: 4
+    roundsOfOneCardsCount: 5
+    addedCardsToCount: 4
+    percentageOfSadCards: 25
     gameTime: 5
   happysprite: {fileID: -2413806693520163455, guid: 8f9ff83a1cbca71468b88e18a3acc4cb, type: 3}
   sadsprite: {fileID: -2413806693520163455, guid: 2a83a9ec00bd2574cb3849476106e511, type: 3}

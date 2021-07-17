@@ -1,29 +1,47 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Model
 {
     public List<int> allCards = new List<int>();
     public List<bool> sadCards = new List<bool>();
-    public int howManyCards = 10;
+
+    public int cardsCountStart = 4;
+    public int roundsOfOneCardsCount = 5;
+    public int addedCardsToCount = 4;
+
     public int percentageOfSadCards = 50;
     public float gameTime = 10;
     public float nowTime;
 
-    public void SettingDifficulty(int howmanycards, int percentageofsadcards, int gametime)
+    int roundCounter = 0;
+    int score;
+
+    public void SettingDifficulty(int cardsCountStartValue, int percentageOfSadCardsValue, int gameTimeValue, int roundsOfOneCardsCountValue, int addedCardsToCountValue)
     {
-        howManyCards = howmanycards;
-        percentageOfSadCards = percentageofsadcards;
-        gameTime = gametime;
-        nowTime = gametime;
+        cardsCountStart = cardsCountStartValue;
+        roundsOfOneCardsCount = roundsOfOneCardsCountValue;
+        addedCardsToCount = addedCardsToCountValue;
+        percentageOfSadCards = percentageOfSadCardsValue;
+        gameTime = gameTimeValue;
+        nowTime = gameTimeValue;
     }
 
     public void GenerateAllCards()
     {
-        for (int i = 0; i < howManyCards; i++)
+        ResetCards();
+        float counter = roundCounter / roundsOfOneCardsCount;
+        int addedCards = 1 * (int)counter;
+        for (int i = 0; i < cardsCountStart + (addedCards * addedCardsToCount); i++)
         {
             allCards.Add(i);
+        }
+        if (allCards.Count < 24)
+        {
+            roundCounter++;
         }
     }
 
@@ -33,18 +51,23 @@ public class Model
         {
             sadCards.Add(true);
         }
-        for (int i = 0; i < allCards.Count; i++)
+        int countSadCards = 0;
+        for (int i = 0; i < sadCards.Count; i++)
         {
-            int randomnumber = Random.Range(0, 100);
-            if (randomnumber <= percentageOfSadCards)
+            countSadCards++;
+            if ((float)countSadCards / (float)sadCards.Count * 100 <= percentageOfSadCards)
             {
                 sadCards[i] = false;
             }
-            else
-            {
-                sadCards[i] = true;
-            }
         }
+        sadCards = sadCards.OrderBy(i => Guid.NewGuid()).ToList();
+
+    }
+
+    public void ResetCards()
+    {
+        allCards.Clear();
+        sadCards.Clear();
     }
 
     public void Check(int CardID)
@@ -90,6 +113,7 @@ public class Model
                 return false;
             }
         }
+        score++;
         return true;
     }
 
@@ -105,5 +129,10 @@ public class Model
         {
             nowTime = 0;
         }
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 }

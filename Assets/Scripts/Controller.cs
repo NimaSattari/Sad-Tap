@@ -13,7 +13,7 @@ public class Controller : MonoBehaviour
     void Start()
     {
         SetupValues();
-
+        model = new Model();
         MakeNewGame();
     }
 
@@ -37,8 +37,7 @@ public class Controller : MonoBehaviour
 
     public void MakeNewGame()
     {
-        model = new Model();
-        model.SettingDifficulty(config.dataList.howManyCards, config.dataList.percentageOfSadCards, config.dataList.gameTime);
+        model.SettingDifficulty(config.dataList.cardsCountStart, config.dataList.percentageOfSadCards, config.dataList.gameTime, config.dataList.roundsOfOneCardsCount, config.dataList.addedCardsToCount);
         model.GenerateAllCards();
         model.GenerateSadCards();
         view.ResetGame();
@@ -67,7 +66,7 @@ public class Controller : MonoBehaviour
         if (model.CheckIfDone())
         {
             MakeNewGame();
-            //view.Win();
+            view.UpdateScoreText(model.GetScore());
         }
     }
 
