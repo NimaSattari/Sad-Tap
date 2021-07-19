@@ -13,10 +13,12 @@ public class View : MonoBehaviour
     public GameObject cardsPanel;
     public GameObject losePanel;
     public GameObject winPanel;
-    public List<FaceItemPresenter> cards;
     public Text timeText;
     public Text scoreText;
     public Slider timeSlider;
+
+    public List<FaceItemPresenter> cards;
+
 
     private void Start()
     {
