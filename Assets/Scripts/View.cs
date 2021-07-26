@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,9 +15,12 @@ public class View : MonoBehaviour
     public GameObject cardsPanel;
     public GameObject losePanel;
     public GameObject winPanel;
-    public Text timeText;
-    public Text scoreText;
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI scoreText;
     public Slider timeSlider;
+    public float timeToRotateCards;
+    public DoTweenActions winAnimator;
+    public DoTweenActions loseAnimator;
 
     public List<FaceItemPresenter> cards;
 
@@ -47,13 +52,13 @@ public class View : MonoBehaviour
             switch (randomNumber)
             {
                 case 0:
-                    card.transform.Rotate(new Vector3(0, 0, 90));
+                    card.transform.DORotate(new Vector3(0, 0, 90), timeToRotateCards);
                     break;
                 case 1:
-                    card.transform.Rotate(new Vector3(0, 0, 180));
+                    card.transform.DORotate(new Vector3(0, 0, 180), timeToRotateCards);
                     break;
                 case 2:
-                    card.transform.Rotate(new Vector3(0, 0, 270));
+                    card.transform.DORotate(new Vector3(0, 0, 270), timeToRotateCards);
                     break;
                 default:
                     break;
@@ -85,11 +90,13 @@ public class View : MonoBehaviour
     public void GameOver()
     {
         losePanel.SetActive(true);
+        loseAnimator.DoAnimation();
     }
 
     public void Win()
     {
         winPanel.SetActive(true);
+        winAnimator.DoAnimation();
     }
 
     public void UpdateTimeText(float gameTime)

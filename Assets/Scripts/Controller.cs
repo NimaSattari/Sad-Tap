@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour
     [SerializeField] View view;
     private float nextUpdate = 0.01f;
     Model model;
+    bool isGameOver = false;
 
     void Start()
     {
@@ -19,7 +20,7 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time >= nextUpdate)
+        if (Time.time >= nextUpdate && !isGameOver)
         {
             nextUpdate = Time.time + 0.01f;
             ShowTime();
@@ -58,15 +59,19 @@ public class Controller : MonoBehaviour
     {
         model.Check(CardID);
         view.Choose(faceItemPresenter, sadorhappy);
-        CheckIfWin();
+        CheckIfDone();
     }
 
-    private void CheckIfWin()
+    private void CheckIfDone()
     {
         if (model.CheckIfDone())
         {
-            MakeNewGame();
             view.UpdateScoreText(model.GetScore());
+            if (CheckIfWin())
+            {
+                return;
+            }
+            MakeNewGame();
         }
     }
 
@@ -74,8 +79,19 @@ public class Controller : MonoBehaviour
     {
         if (model.CheckTime())
         {
+            isGameOver = true;
             view.GameOver();
         }
+    }
+    private bool CheckIfWin()
+    {
+        if (model.GetScore() >= 20)
+        {
+            isGameOver = true;
+            view.Win();
+            return true;
+        }
+        return false;
     }
 
     private void ShowTime()
