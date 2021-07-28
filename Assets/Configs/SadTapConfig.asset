@@ -18,6 +18,7 @@ MonoBehaviour:
     addedCardsToCount: 4
     percentageOfSadCards: 25
     gameTime: 5
+    scoreToWin: 5
   happysprite: {fileID: -2413806693520163455, guid: 8f9ff83a1cbca71468b88e18a3acc4cb, type: 3}
   sadsprite: {fileID: -2413806693520163455, guid: 2a83a9ec00bd2574cb3849476106e511, type: 3}
   faceItemPresenterPrefab: {fileID: -3706436549060146146, guid: 17eb22004ffda46459ab1d0db5bba643, type: 3}

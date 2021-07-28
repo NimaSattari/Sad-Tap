@@ -9,7 +9,8 @@ public class Controller : MonoBehaviour
     [SerializeField] View view;
     private float nextUpdate = 0.01f;
     Model model;
-    bool isGameOver = false;
+    private bool isGameOver = false;
+    private int scoreToWin;
 
     void Start()
     {
@@ -30,6 +31,7 @@ public class Controller : MonoBehaviour
 
     private void SetupValues()
     {
+        scoreToWin = config.dataList.scoreToWin;
         view.sadImage = config.sadsprite;
         view.happyImage = config.happysprite;
         view.faceItemPresenterPrefab = config.faceItemPresenterPrefab;
@@ -85,7 +87,7 @@ public class Controller : MonoBehaviour
     }
     private bool CheckIfWin()
     {
-        if (model.GetScore() >= 20)
+        if (model.GetScore() >= scoreToWin)
         {
             isGameOver = true;
             view.Win();

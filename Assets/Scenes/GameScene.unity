@@ -1545,7 +1545,6 @@ GameObject:
   - component: {fileID: 934567412}
   - component: {fileID: 934567414}
   - component: {fileID: 934567413}
-  - component: {fileID: 934567415}
   m_Layer: 5
   m_Name: WinPanel
   m_TagString: Untagged
@@ -1560,7 +1559,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934567411}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1569,10 +1568,10 @@ RectTransform:
   - {fileID: 1858061489}
   m_Father: {fileID: 375181087}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1000}
+  m_AnchoredPosition: {x: 0, y: 250}
   m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &934567413
@@ -1613,24 +1612,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934567411}
   m_CullTransparentMesh: 1
---- !u!114 &934567415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934567411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac167a3df27aa9f46b218c90272f8c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetLocation: {x: 0, y: 0, z: 0}
-  targetSize: {x: 0, y: 0, z: 0}
-  targetRotarion: {x: 0, y: 0, z: 0}
-  animationDuration: 10
-  animationEase: 24
-  animationType: 4
 --- !u!1 &947564732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,8 +1862,14 @@ MonoBehaviour:
   scoreText: {fileID: 1412641522}
   timeSlider: {fileID: 1638026300}
   timeToRotateCards: 0.5
-  winAnimator: {fileID: 934567415}
-  loseAnimator: {fileID: 1220054825}
+  wintargetLocation: {x: 0, y: 0, z: 0}
+  wintargetRotation: {x: 0, y: 0, z: 0}
+  winanimationDuration: 5
+  winanimationEase: 24
+  losetargetLocation: {x: 0, y: 0, z: 0}
+  losetargetSize: {x: 2, y: 2, z: 2}
+  loseanimationDuration: 1
+  loseanimationEase: 30
   cards: []
 --- !u!4 &1093235874
 Transform:
@@ -1909,7 +1896,6 @@ GameObject:
   - component: {fileID: 1220054822}
   - component: {fileID: 1220054824}
   - component: {fileID: 1220054823}
-  - component: {fileID: 1220054825}
   m_Layer: 5
   m_Name: LosePanel
   m_TagString: Untagged
@@ -1977,24 +1963,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220054821}
   m_CullTransparentMesh: 1
---- !u!114 &1220054825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220054821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac167a3df27aa9f46b218c90272f8c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetLocation: {x: 0, y: 0, z: 0}
-  targetSize: {x: 2, y: 2, z: 2}
-  targetRotarion: {x: 0, y: 0, z: 0}
-  animationDuration: 1
-  animationEase: 30
-  animationType: 3
 --- !u!1 &1224239984
 GameObject:
   m_ObjectHideFlags: 0

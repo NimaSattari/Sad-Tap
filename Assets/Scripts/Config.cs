@@ -9,6 +9,7 @@ public class DifficultyData
     public int addedCardsToCount;
     public int percentageOfSadCards;
     public int gameTime;
+    public int scoreToWin;
 }
 
 [CreateAssetMenu(fileName = "SadTap", menuName = "Config", order = 1)]

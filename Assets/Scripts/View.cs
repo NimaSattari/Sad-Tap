@@ -18,10 +18,23 @@ public class View : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI scoreText;
     public Slider timeSlider;
-    public float timeToRotateCards;
-    public DoTweenActions winAnimator;
-    public DoTweenActions loseAnimator;
 
+    [Header("Card Rotation Animation Values")]
+    public float timeToRotateCards;
+
+    [Header("Win Animation Values")]
+    [SerializeField] Vector3 wintargetLocation = Vector3.zero;
+    [SerializeField] Vector3 wintargetRotation = Vector3.zero;
+    [SerializeField] float winanimationDuration = 1f;
+    [SerializeField] Ease winanimationEase = Ease.Linear;
+
+    [Header("Lose Animation Values")]
+    [SerializeField] Vector3 losetargetLocation = Vector3.zero;
+    [SerializeField] Vector3 losetargetSize = Vector3.zero;
+    [SerializeField] float loseanimationDuration = 1f;
+    [SerializeField] Ease loseanimationEase = Ease.Linear;
+
+    [Header("Cards List")]
     public List<FaceItemPresenter> cards;
 
 
@@ -90,13 +103,13 @@ public class View : MonoBehaviour
     public void GameOver()
     {
         losePanel.SetActive(true);
-        loseAnimator.DoAnimation();
+        LoseDoTweenMoveAndScale();
     }
 
     public void Win()
     {
         winPanel.SetActive(true);
-        winAnimator.DoAnimation();
+        WinDoTweenMoveAndRotate();
     }
 
     public void UpdateTimeText(float gameTime)
@@ -108,5 +121,19 @@ public class View : MonoBehaviour
     public void UpdateScoreText(int score)
     {
         scoreText.text = score.ToString();
+    }
+
+    public void LoseDoTweenMoveAndScale()
+    {
+        DOTween.Sequence().SetAutoKill(false)
+    .Append(losePanel.transform.DOLocalMove(losetargetLocation, loseanimationDuration).SetEase(loseanimationEase))
+    .Join(losePanel.transform.DOScale(losetargetSize, loseanimationDuration).SetEase(loseanimationEase));
+    }
+
+    public void WinDoTweenMoveAndRotate()
+    {
+        DOTween.Sequence().SetAutoKill(false)
+    .Append(winPanel.transform.DOLocalMove(wintargetLocation, winanimationDuration).SetEase(winanimationEase))
+    .Join(winPanel.transform.DORotate(wintargetRotation, winanimationDuration).SetEase(winanimationEase));
     }
 }
