@@ -37,6 +37,8 @@ public class View : MonoBehaviour
     [Header("Cards List")]
     public List<FaceItemPresenter> cards;
 
+    [SerializeField] DoTweenActions actions;
+
 
     private void Start()
     {
